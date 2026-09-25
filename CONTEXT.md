@@ -61,3 +61,17 @@ _Avoid_: Type (the design guideline's word for it), style, kind
 **State**:
 A condition a component passes through at runtime rather than one the author picks: hover, focus, pressed, active, checked, disabled, invalid.
 _Avoid_: Variant, mode
+
+### Code vs guideline
+
+**Divergence**:
+A thing both the design guideline and the component library define, with different values (e.g. small-button radius: 6px in the guideline, 8px as built).
+_Avoid_: Conflict, discrepancy, mismatch
+
+**Gap**:
+A thing only one of the design guideline and the component library defines (e.g. the guideline's h5 size, which the library never built).
+_Avoid_: Omission, missing feature
+
+**Defect**:
+A place where the component library contradicts itself: a style it names but never generates, a stale name, or a token that resolves to the wrong scale.
+_Avoid_: Bug, dead code
