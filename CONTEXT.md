@@ -26,6 +26,10 @@ _Avoid_: Token misuse, cross-role token
 A system-wide design rule that isn't a component: colour, typography, grid, spacing, radius, shadow, motion, iconography.
 _Avoid_: Base styles, globals
 
+**Off-scale value**:
+A type size, line height, radius or spacing that renders outside the MYDS scale for its foundation, e.g. a Tailwind default text size (18/28) or checkbox's 5px radius. A value written in arbitrary syntax that lands on a scale step (`px-[10px]` = spacing `2.5`) is on-scale.
+_Avoid_: Arbitrary value (that's the Tailwind syntax, which can land on-scale), custom value, non-standard
+
 ### Products
 
 **Design guideline**:
