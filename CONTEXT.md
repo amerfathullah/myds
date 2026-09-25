@@ -19,7 +19,7 @@ One complete mapping of semantic tokens to primitive colours; MYDS ships a light
 _Avoid_: Mode, colour scheme
 
 **Off-label pairing**:
-A semantic token applied to a role other than the one its prefix names, e.g. an outline token (`otl-*`) used as a background.
+A semantic token used for a visual role other than the one its prefix names, e.g. a text token (`txt-*`) filling a status dot. The role is what the element is, not the utility: a 1px divider filled with an outline token is still an outline, so it isn't off-label.
 _Avoid_: Token misuse, cross-role token
 
 **Foundation**:
@@ -39,6 +39,10 @@ _Avoid_: UI kit
 **Page-level component**:
 A component that frames a whole page rather than sitting inside content: Masthead, Navbar, Footer, AnnounceBar, SkipLink, CookieBanner.
 _Avoid_: Layout, template, page pattern
+
+**National mark**:
+A mark of the Malaysian state (the flag, Jata Negara) that MYDS places itself, as opposed to the agency logo that the author supplies.
+_Avoid_: Brand mark, logo
 
 **Template**:
 A starter app scaffold wired to MYDS (`template/fe-template-*`); it carries no page design of its own.
