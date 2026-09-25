@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: MYDS
-description: The Malaysian Government Design System as built in `@govtechmy/myds-react` and `@govtechmy/myds-style`. A calm, institutional, accessibility-first utility for government digital services. A white canvas and near-black text, one blue primary kept for action and selection, Poppins headings over an Inter body, status colours kept for status, and a light and a dark theme driven by semantic tokens. Every page sits in a fixed frame of SkipLink, Masthead (Malaysia flag), Navbar and Footer, on a 12-8-4 grid.
+description: An unofficial description of the Malaysian Government Design System as built in `@govtechmy/myds-react` and `@govtechmy/myds-style`, for official Malaysian government services only. A calm, institutional, accessibility-first utility for government digital services. A white canvas and near-black text, one blue primary kept for action and selection, Poppins headings over an Inter body, status colours kept for status, and a light and a dark theme driven by semantic tokens. Every page sits in a fixed frame of SkipLink, Masthead (Malaysia flag), Navbar and Footer, on a 12-8-4 grid.
 
 colors:
   white: "#FFFFFF"
@@ -1069,6 +1069,12 @@ components:
 ---
 
 # MYDS — Malaysian Government Design System
+
+> **Unofficial.** Written independently from the public MYDS source. Not made or endorsed by GovTech Malaysia or Kementerian Digital.
+>
+> **For official Malaysian government services only.** The Masthead, the Malaysia flag and the Jata Negara tell citizens that the Government runs a site. If you aren't building an official government service, don't use this file, and never show those marks.
+>
+> The text of this file is © 2026 Amer Fathullah Nuaim Zakaria, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The licence covers the writing only, not MYDS's values, the quotes from its design guideline, or the national marks.
 
 This file describes MYDS **as built**: the Tailwind preset in `packages/style` (`@govtechmy/myds-style`) and the React library in `packages/react` (`@govtechmy/myds-react`). The design guideline in `apps/docs/content/docs/design` is used where code says nothing. Where the two disagree, this file prints what the code renders and lists the guideline's value under [Known Gaps](#known-gaps). Terms such as _semantic token_, _off-label pairing_, _page frame_, _variant_ and _state_ are defined in [`CONTEXT.md`](CONTEXT.md).
 
