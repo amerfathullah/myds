@@ -40,6 +40,10 @@ _Avoid_: UI kit
 A component that frames a whole page rather than sitting inside content: Masthead, Navbar, Footer, AnnounceBar, SkipLink, CookieBanner.
 _Avoid_: Layout, template, page pattern
 
+**Page frame**:
+The fixed arrangement of page-level components around a page's content: SkipLink → Masthead → Navbar … Footer.
+_Avoid_: Layout, shell, chrome
+
 **National mark**:
 A mark of the Malaysian state (the flag, Jata Negara) that MYDS places itself, as opposed to the agency logo that the author supplies.
 _Avoid_: Brand mark, logo
