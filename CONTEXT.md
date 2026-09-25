@@ -43,3 +43,13 @@ _Avoid_: Layout, template, page pattern
 **Template**:
 A starter app scaffold wired to MYDS (`template/fe-template-*`); it carries no page design of its own.
 _Avoid_: Page pattern, layout
+
+### Components
+
+**Variant**:
+A named visual style of a component, chosen by the author (e.g. button `primary-fill`, callout `warning`).
+_Avoid_: Type (the design guideline's word for it), style, kind
+
+**State**:
+A condition a component passes through at runtime rather than one the author picks: hover, focus, pressed, active, checked, disabled, invalid.
+_Avoid_: Variant, mode
