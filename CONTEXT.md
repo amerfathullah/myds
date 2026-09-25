@@ -52,6 +52,10 @@ _Avoid_: Layout, shell, chrome
 A mark of the Malaysian state (the flag, Jata Negara) that MYDS places itself, as opposed to the agency logo that the author supplies.
 _Avoid_: Brand mark, logo
 
+**Official service**:
+A digital service run by a Malaysian government agency; the only kind of site that may show a national mark.
+_Avoid_: Government site (a non-government site can look like one), agency site
+
 **Template**:
 A starter app scaffold wired to MYDS (`template/fe-template-*`); it carries no page design of its own.
 _Avoid_: Page pattern, layout
