@@ -18,6 +18,10 @@ _Avoid_: Alias, design token (too broad)
 One complete mapping of semantic tokens to primitive colours; MYDS ships a light and a dark theme.
 _Avoid_: Mode, colour scheme
 
+**Off-label pairing**:
+A semantic token applied to a role other than the one its prefix names, e.g. an outline token (`otl-*`) used as a background.
+_Avoid_: Token misuse, cross-role token
+
 **Foundation**:
 A system-wide design rule that isn't a component: colour, typography, grid, spacing, radius, shadow, motion, iconography.
 _Avoid_: Base styles, globals
