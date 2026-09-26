@@ -4,6 +4,15 @@
 
 ![myds-hero-img](https://d2391uizq0pg2.cloudfront.net/design/myds-hero-img.png)
 
+## Preview
+
+Interactive previews of the MYDS design tokens and component library — no framework build required.
+
+| Theme | Link |
+|-------|------|
+| ☀️ Light | [preview.html](./preview.html) |
+| 🌙 Dark | [preview-dark.html](./preview-dark.html) |
+
 > The Malaysian Government Design System (MYDS) contains the design guideline and the component library for creating consistent and accessible digital services across the Malaysian government.
 
 There are two (2) key products in MYDS:
