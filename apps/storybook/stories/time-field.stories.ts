@@ -5,7 +5,8 @@ import { TimeField } from "@govtechmy/myds-react/time-field";
 /**
  * ### Overview
  * The Time Field component allows users to enter a time of day in hours and minutes. It matches DateField in
- * every size and state. 12/24-hour display follows the user's browser locale; the value is always `HH:mm`.
+ * every size and state. 12/24-hour display follows the user's browser locale; the value is 24-hour `HH:mm`
+ * (`HH:mm:ss` when `step` is below 60).
  * Name it with a `Label` (`htmlFor`) and pass the matching `id`.
  *
  * _Based on [HTML's time input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time)_
@@ -31,6 +32,7 @@ const meta = {
   args: {
     size: "medium",
     invalid: false,
+    // Stories render the field alone, so name it here; in an app, pair it with a `Label` instead.
     "aria-label": "Appointment time",
   },
   argTypes: {
