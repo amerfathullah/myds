@@ -872,6 +872,15 @@ components:
     borderColor: "{colors.otl-gray-200}"
     typography: "14px/33.11px"
     padding: "6px 12px 6px 0px"
+  skeleton-line:
+    backgroundColor: "{colors.bg-black-100}"
+    rounded: "{rounded.full}"
+  skeleton-circle:
+    backgroundColor: "{colors.bg-black-100}"
+    rounded: "{rounded.full}"
+  skeleton-block:
+    backgroundColor: "{colors.bg-black-100}"
+    rounded: "{rounded.md}"
   table-skeleton:
     backgroundColor: "{colors.bg-black-100}"
     rounded: "{rounded.full}"
@@ -1137,7 +1146,7 @@ Five scales, plus `white` and `black`. `gray` is Tailwind _zinc_ with its own 50
 
 - **Surfaces:** `bg-white` is the page and card surface. `bg-white-hover` is its hover, and `bg-white-disabled` (`gray-100` @ 40%) is its disabled fill. `bg-washed` is the recessed surface (Masthead, enclosed tabs, disabled inputs, tag default), and `bg-gray-50` is the Footer. `bg-dialog` fills menus, popovers and select content. `bg-contrast` is unused by components.
 - **`-active` tokens only differ in dark.** `bg-washed-active` equals `bg-washed`, and `bg-dialog-active` equals `bg-dialog`, in the light theme. They separate only in dark, so a selected pill tab or pagination item looks the same as its surface in light.
-- **`bg-black-*`** is a neutral ramp that inverts (`bg-black-900` is `gray-900` in light and `white` in dark). The tooltip uses `bg-black-900`, and the table skeleton shimmers between `bg-black-100` and `bg-black-300`.
+- **`bg-black-*`** is a neutral ramp that inverts (`bg-black-900` is `gray-900` in light and `white` in dark). The tooltip uses `bg-black-900`, and Skeleton shimmers between `bg-black-100` and `bg-black-300`.
 - **`bg-{primary,danger,success,warning}-*`** are the tinted status fills. Components use the 50 step for callouts, tags, and outline and ghost hovers. `bg-primary-100` and `bg-primary-200` are the date-range fill and its hover, and the toggle track uses `bg-primary-600` when checked.
 - **`bg-{status}-disabled`** are opaque: step 200 in light, step 950 in dark.
 
@@ -1290,8 +1299,8 @@ The preset does not define its own breakpoints, so Tailwind's defaults are in ef
 A page container and grid built from existing classes (the page-level components already use this container):
 
 ```html
-<div class="mx-auto max-w-screen-xl px-4.5 md:px-6">
-  <div class="grid grid-cols-4 gap-4.5 md:grid-cols-8 md:gap-6 lg:grid-cols-12">
+<div class="px-4.5 mx-auto max-w-screen-xl md:px-6">
+  <div class="gap-4.5 grid grid-cols-4 md:grid-cols-8 md:gap-6 lg:grid-cols-12">
     …
   </div>
 </div>
@@ -1334,14 +1343,14 @@ MYDS is mostly flat. Depth comes from borders (`otl-gray-200`) and recessed `bg-
 
 `rounded:` is the preset's radius scale. Bare `rounded` is `md` (8px).
 
-| Token  | Value  | Where the guideline uses it      | Where the library uses it                                                             |
-| ------ | ------ | -------------------------------- | ------------------------------------------------------------------------------------- |
-| `xs`   | 4px    | Context-menu item                | Small checkbox, dropdown and select items                                             |
-| `sm`   | 6px    | Small button                     | Pill, tooltip, small search bar                                                       |
-| `md`   | 8px    | Button, CTA, context menu        | Every button size, inputs, select, dropdown, callout, toast, tag (default mode), tabs |
-| `lg`   | 12px   | Content card                     | Dialog, CookieBanner                                                                  |
-| `xl`   | 14px   | Context menu with a search field | —                                                                                     |
-| `full` | 9999px | —                                | Tag (pill mode), toggle, radio, large search bar, counters, pill tabs                 |
+| Token  | Value  | Where the guideline uses it      | Where the library uses it                                                                                 |
+| ------ | ------ | -------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `xs`   | 4px    | Context-menu item                | Small checkbox, dropdown and select items                                                                 |
+| `sm`   | 6px    | Small button                     | Pill, tooltip, small search bar                                                                           |
+| `md`   | 8px    | Button, CTA, context menu        | Every button size, inputs, select, dropdown, callout, toast, tag (default mode), tabs, skeleton (`block`) |
+| `lg`   | 12px   | Content card                     | Dialog, CookieBanner                                                                                      |
+| `xl`   | 14px   | Context menu with a search field | —                                                                                                         |
+| `full` | 9999px | —                                | Tag (pill mode), toggle, radio, large search bar, counters, pill tabs, skeleton (`line`, `circle`)        |
 
 - Checkbox medium and large use an off-scale 5px.
 - The large search bar's results panel rounds only its bottom corners, with Tailwind's `rounded-b-2xl` (16px, off-scale). The small and medium panels use `rounded-b-sm` and `rounded-b-md`.
@@ -1359,11 +1368,12 @@ Motion in MYDS is short and functional: the guideline says it should guide, not 
   | `animate-slide-up` / `animate-slide-down` | translate Y from ±100% to 0                      | 300ms ease-out                                                          |
   | `animate-accordion-slide-down` / `-up`    | height 0 ↔ `--radix-accordion-content-height`   | 300ms ease-out                                                          |
   | `animate-collapsible-slide-down` / `-up`  | height 0 ↔ `--radix-collapsible-content-height` | 300ms ease-out                                                          |
-  | `animate-shimmer`                         | background-position 0% → 200%                    | 1200ms linear, infinite (table skeleton)                                |
+  | `animate-shimmer`                         | background-position 0% → 200%                    | 1200ms linear, infinite (Skeleton)                                      |
   | `animate-expire`                          | width 100% → 0%                                  | 5s linear (toast progress bar; the toast sets the real duration inline) |
 
 - **Enter and exit.** The `tailwindcss-animate` plugin supplies `animate-in`/`animate-out`, `fade-in-0`/`fade-out-0`, `zoom-in-95`/`zoom-out-95` and `slide-in-from-*`. Dropdown, select content, popover and dialog open and close with fade + zoom-95 + an 8px slide from the trigger side. Sheet slides from its edge. Tooltip fades in over 200ms.
 - **Press.** Buttons move down by half a pixel while pressed (`active:translate-y-[0.5px]`).
+- **Reduced motion.** Under `prefers-reduced-motion`, Skeleton and the Masthead panel stop animating (`motion-reduce:animate-none`), and Navbar's menu links and dropdown chevron drop their transitions (`motion-reduce:transition-none`). Every other animation still runs.
 - The base styles set `scroll-behavior: smooth` with `scroll-padding-top: 65px`, which clears the sticky Navbar.
 
 ## Iconography
@@ -1414,6 +1424,7 @@ Rules that hold across every component:
 - **Callout** (`callout-*`). The guideline's Success, Warning, Information and Error map to `success`, `warning`, `info` (default) and `danger`. It has a `bg-{status}-50` fill, a 20px status icon and a Semibold `body-sm` title in `txt-{status}`. The description is `body-sm` `txt-black-900`, and a dismiss cross is `txt-black-700`. 12px padding, `rounded.md`, no border.
 - **Toast** (`toast-*`). Variants `message` (default), `success`, `info`, `warning` and `error`. The card is `bg-dialog-active` with a `bg-washed-active` border (an off-label pairing) and `shadow-card`. A Semibold `body-sm` title and a 20px icon take the variant colour, and the description is `body-sm` `txt-black-700`. A 4px progress bar along the bottom counts down with `animate-expire` (default duration 5000ms) and pauses on hover. It is filled with `bg-txt-{status}` (off-label), or `bg-washed` for `message`. The viewport stacks toasts in the bottom-right, 18px from the edge on mobile and 24px from `sm:`, up to 384px wide from `md:`.
 - **Tag** (`tag-*`), also used by AnnounceBar for the guideline's Phase Banner. The guideline's Gray, Brand, Success, Danger and Warning map to `default`, `primary`, `success`, `danger` and `warning`. It has a `bg-{status}-50` fill (`bg-washed` for default) and `txt-{status}` text. The 1px border is the primitive @ 20%, which doesn't re-theme: `gray-600`, `primary-600`, `success-700`, `danger-600` and `warning-700` (`#52525B33`, `#2563EB33`, `#15803D33`, `#DC262633`, `#A1620733`). Sizes are 22, 28 and 32px high, and the component defaults to `medium`. `mode` is `default` (8px radius, the component default) or `pill` (full). An optional dot of 6, 8 or 10px takes the text colour.
+- **Skeleton** (`skeleton-*`). A loading placeholder. `shape` is `line` (default: full width, at least 12px high, full radius), `circle` (full radius) or `block` (`rounded.md`); the author sets the size with `className`. It shimmers with a `bg-black-100` → `bg-black-300` → `bg-black-100` gradient on `animate-shimmer`, and under `prefers-reduced-motion` it stops and shows a flat `bg-black-100` fill. It is always `aria-hidden`, so the loading region carries `aria-busy="true"` and visually hidden "Loading…" text. Use it when the loading content's layout is known; use Spinner for an action in progress or an unknown layout.
 - **Tooltip** (`tooltip`). `bg-black-900` with `txt-white`, `text-xs` 12/16 (**off-scale**), 8×12px padding, `rounded.sm`, `shadow-context-menu`, 50–250px wide, with an arrow in the same fill. It fades in over 200ms.
 
 ### Navigation
@@ -1426,7 +1437,7 @@ Rules that hold across every component:
 
 - **Accordion** (`accordion-*`). Items are `bg-white` with an `otl-gray-200` bottom border. Triggers are Medium `txt-black-700` at `text-base leading-none` (16/16, **off-scale**) with 16px vertical padding, turning `txt-black-900` and underlined on hover or when open. A `txt-black-500` chevron rotates 180° over 300ms. Content is `body-sm` `txt-black-700` and opens with `animate-accordion-slide-down`.
 - **Summary list** (`summary-list-*`). `dl` markup at `text-sm` Medium, with `otl-gray-200` dividers between rows. The title is Semibold `text-xl` with `leading-[30px]`, which renders exactly `body-xl`. Terms are `txt-black-500`, at least 190px wide, and details are `txt-black-900`. An optional actions column is right-aligned.
-- **Table** (`table-*`). Headers are `txt-black-500` Medium at `text-xs` 12/16 (**off-scale**). Cells are `txt-black-900` at `text-sm` with `leading-[33.11px]` (14/33.11, **off-scale**) and `otl-gray-200` row borders. Loading rows show a `bg-black-100` → `bg-black-300` → `bg-black-100` gradient bar on `animate-shimmer`.
+- **Table** (`table-*`). Headers are `txt-black-500` Medium at `text-xs` 12/16 (**off-scale**). Cells are `txt-black-900` at `text-sm` with `leading-[33.11px]` (14/33.11, **off-scale**) and `otl-gray-200` row borders. Loading rows show `TableSkeleton` (`table-skeleton`), a Skeleton with the `line` shape.
 - **Data table** (`data-table-*`). Builds on Table and adds sorting (the active sort icon is `txt-primary`), expandable rows (`otl-primary-300` border when expanded), row selection, and pinned columns. Selection controls are checkboxes and radios filled with primitive `primary-600`. A pinned column casts an inset `shadow-[inset_±3px_0_8px_-8px]` along its inner edge.
 
 ### Overlays
@@ -1543,6 +1554,7 @@ Each entry opens with its kind. A **Divergence** is something the guideline and 
 ### Components
 
 - **Gap:** these guideline components have no library component: backlink, character count, details (a chevron disclosure, distinct from the accordion), file upload, inset text (including block quote), panel (blue, green, yellow and red), password input, task list, and the WYSIWYG editor. The guideline's text-input types are approximated: number field with a leading dropdown, field with leading text, and field with a trailing button use Input's prepend and append addons. The tags field is Pill.
+- **Gap:** the guideline has no skeleton page. The library's Skeleton (`line`, `circle`, `block`) has no design reference.
 - **Divergence:** Radio has small, medium and large sizes; the guideline has Small and Medium.
 - **Divergence:** Switch has small, medium and large sizes; the guideline has Medium and Large.
 - **Divergence:** Dialog stops at 512px (`sm:max-w-lg`); the guideline gives 400px for alerts and 800px for forms.

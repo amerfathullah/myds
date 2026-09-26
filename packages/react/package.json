@@ -72,6 +72,11 @@
       "import": "./dist/components/tooltip.mjs",
       "require": "./dist/components/tooltip.js"
     },
+    "./skeleton": {
+      "type": "./dist/components/skeleton.d.ts",
+      "import": "./dist/components/skeleton.mjs",
+      "require": "./dist/components/skeleton.js"
+    },
     "./spinner": {
       "type": "./dist/components/spinner.d.ts",
       "import": "./dist/components/spinner.mjs",

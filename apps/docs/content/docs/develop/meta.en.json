@@ -71,6 +71,7 @@
     "(components)/radio",
     "(components)/search-bar",
     "(components)/select",
+    "(components)/skeleton",
     "(components)/skiplink",
     "(components)/spinner",
     "(components)/summarylist",
