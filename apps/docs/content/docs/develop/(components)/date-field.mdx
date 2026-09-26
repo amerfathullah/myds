@@ -4,7 +4,7 @@ description: Allows users to input a date in a structured format using separate 
 ---
 
 import { Quicklinks } from "@/components/quicklinks";
-import { DateField } from "@/components/myds";
+import { DateField, Label } from "@/components/myds";
 import { TypeTable } from "fumadocs-ui/components/type-table";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
@@ -12,11 +12,15 @@ export const NOW = new Date().toISOString().split("T")[0];
 
 <Tabs items={["Preview", "Code"]} defaultValue="Preview">
   <Tab value="Preview" className="not-prose flex justify-center">
-    <DateField />
+    <div className="flex flex-col gap-2">
+      <Label htmlFor="date-field" size="small">Date of birth</Label>
+      <DateField id="date-field" />
+    </div>
   </Tab>
   <Tab value="Code">
     ```tsx
-    <DateField />
+    <Label htmlFor="date-field" size="small">Date of birth</Label>
+    <DateField id="date-field" />
     ```
   </Tab>
 </Tabs>
@@ -34,10 +38,16 @@ export const NOW = new Date().toISOString().split("T")[0];
 
 ```ts copy title="Import"
 import { DateField } from "@govtechmy/myds-react/date-field";
+import { Label } from "@govtechmy/myds-react/label";
 ```
 
 ```tsx copy title="Anatomy"
-export default () => <DateField />;
+export default () => (
+  <>
+    <Label htmlFor="date-field" size="small">Date of birth</Label>
+    <DateField id="date-field" />
+  </>
+);
 ```
 
 ## Examples
@@ -49,16 +59,28 @@ Use the `size` prop to change the checkbox size!
 <Tabs items={["Preview", "Code"]} defaultValue="Preview">
   <Tab value="Preview">
     <div className="not-prose flex flex-col items-center gap-3">
-      <DateField size="small" />
-      <DateField size="medium" />
-      <DateField size="large" />
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="date-field-small" size="small">Date of birth</Label>
+        <DateField id="date-field-small" size="small" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="date-field-medium" size="medium">Date of birth</Label>
+        <DateField id="date-field-medium" size="medium" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="date-field-large" size="large">Date of birth</Label>
+        <DateField id="date-field-large" size="large" />
+      </div>
     </div>
   </Tab>
   <Tab value="Code">
     ```tsx
-    <DateField size="small" />
-    <DateField size="medium" />
-    <DateField size="large" />
+    <Label htmlFor="date-field-small" size="small">Date of birth</Label>
+    <DateField id="date-field-small" size="small" />
+    <Label htmlFor="date-field-medium" size="medium">Date of birth</Label>
+    <DateField id="date-field-medium" size="medium" />
+    <Label htmlFor="date-field-large" size="large">Date of birth</Label>
+    <DateField id="date-field-large" size="large" />
     ```
   </Tab>
 </Tabs>
@@ -72,23 +94,25 @@ To use the date field in the controlled state, set the `value` prop to the curre
 <Tabs items={["Preview", "Code"]} defaultValue="Preview">
   <Tab value="Preview">
     <div className="not-prose flex flex-col gap-3 items-center">
-        <div>
-            Uncontrolled
-            <DateField defaultValue={NOW} />
-        </div>
-        <div>
-            Controlled
-            <DateField value={NOW} />
-        </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="date-field-uncontrolled" size="small">Uncontrolled</Label>
+        <DateField id="date-field-uncontrolled" defaultValue={NOW} />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="date-field-controlled" size="small">Controlled</Label>
+        <DateField id="date-field-controlled" value={NOW} />
+      </div>
     </div>
   </Tab>
   <Tab value="Code">
     ```tsx
     // Uncontrolled state
-    <DateField defaultValue={new Date().toISOString().split("T")[0]} />
+    <Label htmlFor="date-field-uncontrolled" size="small">Uncontrolled</Label>
+    <DateField id="date-field-uncontrolled" defaultValue={new Date().toISOString().split("T")[0]} />
 
     // Controlled state
-    <DateField value={new Date().toISOString().split("T")[0]} />
+    <Label htmlFor="date-field-controlled" size="small">Controlled</Label>
+    <DateField id="date-field-controlled" value={new Date().toISOString().split("T")[0]} />
     ```
 
   </Tab>
@@ -101,12 +125,16 @@ Date field can be disabled by setting the `disabled` prop to `true`. When disabl
 <Tabs items={["Preview", "Code"]} defaultValue="Preview">
   <Tab value="Preview">
     <div className="not-prose flex justify-center">
-      <DateField defaultValue={NOW} disabled />
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="date-field-disabled" size="small">Date of birth</Label>
+        <DateField id="date-field-disabled" defaultValue={NOW} disabled />
+      </div>
     </div>
   </Tab>
   <Tab value="Code">
     ```tsx
-    <DateField defaultValue={new Date().toISOString().split("T")[0]} disabled />
+    <Label htmlFor="date-field-disabled" size="small">Date of birth</Label>
+    <DateField id="date-field-disabled" defaultValue={new Date().toISOString().split("T")[0]} disabled />
     ```
   </Tab>
 </Tabs>
@@ -118,12 +146,16 @@ Invalid state is triggered when a date field fails validation. To indicate an in
 <Tabs items={["Preview", "Code"]} defaultValue="Preview">
   <Tab value="Preview">
     <div className="not-prose flex justify-center">
-      <DateField defaultValue={NOW} invalid />
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="date-field-invalid" size="small">Date of birth</Label>
+        <DateField id="date-field-invalid" defaultValue={NOW} invalid />
+      </div>
     </div>
   </Tab>
   <Tab value="Code">
     ```tsx
-    <DateField defaultValue={new Date().toISOString().split("T")[0]} invalid />
+    <Label htmlFor="date-field-invalid" size="small">Date of birth</Label>
+    <DateField id="date-field-invalid" defaultValue={new Date().toISOString().split("T")[0]} invalid />
     ```
   </Tab>
 </Tabs>
