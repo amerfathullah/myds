@@ -6,6 +6,15 @@
 
 > The Malaysian Government Design System (MYDS) contains the design guideline and the component library for creating consistent and accessible digital services across the Malaysian government.
 
+## Preview
+
+Interactive HTML previews of MYDS design tokens (color ramps, semantic tokens, typography, spacing) and UI components (buttons, badges, form controls, callouts, navigation, tables, dialogs):
+
+| Theme | Link |
+|-------|------|
+| ☀️ Light | [preview.html](./preview.html) |
+| 🌙 Dark | [preview-dark.html](./preview-dark.html) |
+
 There are two (2) key products in MYDS:
 
 1. **Design Language Guideline**: Aimed at designers and project managers, this guideline provides the principles, standards, and best practices for designing user interfaces that are cohesive and user-friendly.
