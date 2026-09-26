@@ -80,6 +80,7 @@
     "(components)/tag",
     "(components)/text-area",
     "(components)/theme-switch",
+    "(components)/time-field",
     "(components)/toast",
     "(components)/toggle",
     "(components)/tooltip",

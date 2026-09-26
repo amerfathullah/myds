@@ -1,0 +1,302 @@
+---
+title: Time Field
+description: Allows users to enter a time of day, in hours and minutes, using the browser's native time input.
+---
+
+import { Quicklinks } from "@/components/quicklinks";
+import {
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/myds";
+import { TimeField } from "@govtechmy/myds-react/time-field";
+import { TypeTable } from "fumadocs-ui/components/type-table";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+<Tabs items={["Preview", "Code"]} defaultValue="Preview">
+  <Tab value="Preview" className="not-prose flex justify-center">
+    <div className="flex flex-col gap-2">
+      <Label htmlFor="time-field" size="small">Appointment time</Label>
+      <TimeField id="time-field" />
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Label htmlFor="time-field" size="small">Appointment time</Label>
+    <TimeField id="time-field" />
+    ```
+  </Tab>
+</Tabs>
+
+<Quicklinks
+  links={{
+    source:
+      "https://github.com/amerfathullah/myds-design-md/blob/main/packages/react/src/components/time-field.tsx",
+  }}
+/>
+
+## Usage
+
+```ts copy title="Import"
+import { TimeField } from "@govtechmy/myds-react/time-field";
+import { Label } from "@govtechmy/myds-react/label";
+```
+
+```tsx copy title="Anatomy"
+export default () => (
+  <>
+    <Label htmlFor="time-field" size="small">Appointment time</Label>
+    <TimeField id="time-field" />
+  </>
+);
+```
+
+`TimeField` renders no label and no id of its own. Give it an `id` and name it with a `Label` whose `htmlFor` matches. The clock icon is decorative and hidden from assistive technology.
+
+### 12 or 24-hour display
+
+The time field shows a 12-hour clock (with AM/PM) or a 24-hour clock depending on the user's browser and operating-system locale. It can't be set by the component. Whichever the user sees, the value is always 24-hour `HH:mm` (for example `"16:30"`), or `HH:mm:ss` when `step` is below 60.
+
+### Time field or time slots?
+
+- Use **`TimeField`** when the person can enter any time, such as the time an incident happened.
+- Use **[time slots](#time-slots)** when the person books from fixed availability, such as appointment times at a counter.
+
+## Examples
+
+### Size
+
+Use the `size` prop to change the time field size.
+
+<Tabs items={["Preview", "Code"]} defaultValue="Preview">
+  <Tab value="Preview">
+    <div className="not-prose flex flex-col items-center gap-3">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-small" size="small">Appointment time</Label>
+        <TimeField id="time-field-small" size="small" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-medium" size="medium">Appointment time</Label>
+        <TimeField id="time-field-medium" size="medium" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-large" size="large">Appointment time</Label>
+        <TimeField id="time-field-large" size="large" />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Label htmlFor="time-field-small" size="small">Appointment time</Label>
+    <TimeField id="time-field-small" size="small" />
+    <Label htmlFor="time-field-medium" size="medium">Appointment time</Label>
+    <TimeField id="time-field-medium" size="medium" />
+    <Label htmlFor="time-field-large" size="large">Appointment time</Label>
+    <TimeField id="time-field-large" size="large" />
+    ```
+  </Tab>
+</Tabs>
+
+### Uncontrolled vs Controlled State
+
+To use the time field in the uncontrolled state, set the `defaultValue` prop to the initial time as a 24-hour `HH:mm` string.
+
+To use the time field in the controlled state, set the `value` prop and update it from an `onChange` event listener.
+
+<Tabs items={["Preview", "Code"]} defaultValue="Preview">
+  <Tab value="Preview">
+    <div className="not-prose flex justify-center">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-uncontrolled" size="small">Uncontrolled</Label>
+        <TimeField id="time-field-uncontrolled" defaultValue="16:30" />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    // Uncontrolled state
+    <Label htmlFor="time-field-uncontrolled" size="small">Uncontrolled</Label>
+    <TimeField id="time-field-uncontrolled" defaultValue="16:30" />
+
+    // Controlled state
+    const [time, setTime] = useState("16:30");
+
+    <Label htmlFor="time-field-controlled" size="small">Controlled</Label>
+    <TimeField
+      id="time-field-controlled"
+      value={time}
+      onChange={(e) => setTime(e.target.value)}
+    />
+    ```
+
+  </Tab>
+</Tabs>
+
+### Step
+
+`step` is in seconds and defaults to `60`, so the field shows hours and minutes without seconds. Set `step={900}` for 15-minute steps: the arrow keys and the browser's spin controls move the minutes by 15.
+
+Browsers treat `step` as a validation rule. Not all of them stop the user typing another minute (such as `16:07`); the input is then marked `:invalid` and fails form validation. Check the value on submit, or use [time slots](#time-slots) when only fixed times are allowed.
+
+<Tabs items={["Preview", "Code"]} defaultValue="Preview">
+  <Tab value="Preview">
+    <div className="not-prose flex justify-center">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-step" size="small">Appointment time</Label>
+        <TimeField id="time-field-step" step={900} defaultValue="16:00" />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Label htmlFor="time-field-step" size="small">Appointment time</Label>
+    <TimeField id="time-field-step" step={900} defaultValue="16:00" />
+    ```
+  </Tab>
+</Tabs>
+
+### Disabled
+
+A time field can be disabled by setting the `disabled` prop to `true`. When disabled, the time field is not interactive.
+
+<Tabs items={["Preview", "Code"]} defaultValue="Preview">
+  <Tab value="Preview">
+    <div className="not-prose flex justify-center">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-disabled" size="small">Appointment time</Label>
+        <TimeField id="time-field-disabled" defaultValue="16:30" disabled />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Label htmlFor="time-field-disabled" size="small">Appointment time</Label>
+    <TimeField id="time-field-disabled" defaultValue="16:30" disabled />
+    ```
+  </Tab>
+</Tabs>
+
+### Invalid
+
+To mark a time field that failed validation, set the `invalid` prop to `true`. It also sets `aria-invalid` on the input.
+
+<Tabs items={["Preview", "Code"]} defaultValue="Preview">
+  <Tab value="Preview">
+    <div className="not-prose flex justify-center">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-invalid" size="small">Appointment time</Label>
+        <TimeField id="time-field-invalid" defaultValue="16:30" invalid />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Label htmlFor="time-field-invalid" size="small">Appointment time</Label>
+    <TimeField id="time-field-invalid" defaultValue="16:30" invalid />
+    ```
+  </Tab>
+</Tabs>
+
+## Time slots
+
+When the person books from fixed availability, such as counter appointments every 15 minutes, offer the available times as options in a [`Select`](/docs/develop/select) instead of a `TimeField`. The person can only pick a time that is actually on offer, and you control how each time is written.
+
+Use the 24-hour `HH:mm` time as each option's `value`, and write the label the way your service does, such as `4:00 PM`. Leave out the times that are already taken.
+
+<Tabs items={["Preview", "Code"]} defaultValue="Preview">
+  <Tab value="Preview">
+    <div className="not-prose flex justify-center">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-slot" size="small">Appointment time</Label>
+        <Select size="small" variant="outline">
+          <SelectTrigger id="time-slot">
+            <SelectValue placeholder="Select a time" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="16:00">4:00 PM</SelectItem>
+            <SelectItem value="16:15">4:15 PM</SelectItem>
+            <SelectItem value="16:30">4:30 PM</SelectItem>
+            <SelectItem value="16:45">4:45 PM</SelectItem>
+            <SelectItem value="17:00">5:00 PM</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Label htmlFor="time-slot" size="small">Appointment time</Label>
+    <Select size="small" variant="outline">
+      <SelectTrigger id="time-slot">
+        <SelectValue placeholder="Select a time" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="16:00">4:00 PM</SelectItem>
+        <SelectItem value="16:15">4:15 PM</SelectItem>
+        <SelectItem value="16:30">4:30 PM</SelectItem>
+        <SelectItem value="16:45">4:45 PM</SelectItem>
+        <SelectItem value="17:00">5:00 PM</SelectItem>
+      </SelectContent>
+    </Select>
+    ```
+  </Tab>
+</Tabs>
+
+## Props
+
+### TimeField
+
+`TimeField` also accepts the props of a native `<input>`, except `type` and `size`.
+
+<TypeTable
+  type={{
+    size: {
+      description: "Size of the time field",
+      type: "enum",
+      typeDescription: "small | medium | large",
+      default: "small",
+    },
+    step: {
+      description: "Step between allowed times, in seconds",
+      type: "number",
+      default: "60",
+    },
+    defaultValue: {
+      description: "Initial time of the time field (uncontrolled)",
+      type: "string",
+      typeDescription: "HH:mm",
+    },
+    value: {
+      description: "Time of the time field (controlled)",
+      type: "string",
+      typeDescription: "HH:mm",
+    },
+    onChange: {
+      description: "Change event listener (controlled)",
+      type: "(event: ChangeEvent<HTMLInputElement>) => void",
+    },
+    min: {
+      description: "Earliest allowed time",
+      type: "string",
+      typeDescription: "HH:mm",
+    },
+    max: {
+      description: "Latest allowed time",
+      type: "string",
+      typeDescription: "HH:mm",
+    },
+    disabled: {
+      description: "Disabled state for time field",
+      type: "boolean",
+      default: "false",
+    },
+    invalid: {
+      description: "Invalid state for time field",
+      type: "boolean",
+      default: "false",
+    },
+  }}
+/>

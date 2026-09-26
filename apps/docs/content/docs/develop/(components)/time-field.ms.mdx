@@ -1,0 +1,302 @@
+---
+title: Medan Masa
+description: Membolehkan pengguna memasukkan masa, dalam jam dan minit, menggunakan input masa asli pelayar.
+---
+
+import { Quicklinks } from "@/components/quicklinks";
+import {
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/myds";
+import { TimeField } from "@govtechmy/myds-react/time-field";
+import { TypeTable } from "fumadocs-ui/components/type-table";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+<Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
+  <Tab value="Pratonton" className="not-prose flex justify-center">
+    <div className="flex flex-col gap-2">
+      <Label htmlFor="time-field" size="small">Masa temu janji</Label>
+      <TimeField id="time-field" />
+    </div>
+  </Tab>
+  <Tab value="Kod">
+    ```tsx
+    <Label htmlFor="time-field" size="small">Masa temu janji</Label>
+    <TimeField id="time-field" />
+    ```
+  </Tab>
+</Tabs>
+
+<Quicklinks
+  links={{
+    source:
+      "https://github.com/amerfathullah/myds-design-md/blob/main/packages/react/src/components/time-field.tsx",
+  }}
+/>
+
+## Penggunaan
+
+```ts copy title="Import"
+import { TimeField } from "@govtechmy/myds-react/time-field";
+import { Label } from "@govtechmy/myds-react/label";
+```
+
+```tsx copy title="Anatomi"
+export default () => (
+  <>
+    <Label htmlFor="time-field" size="small">Masa temu janji</Label>
+    <TimeField id="time-field" />
+  </>
+);
+```
+
+`TimeField` tidak memaparkan label atau id sendiri. Berikan `id` kepadanya dan namakannya dengan `Label` yang `htmlFor`nya sepadan. Ikon jam hanyalah hiasan dan disembunyikan daripada teknologi bantuan.
+
+### Paparan 12 atau 24 jam
+
+Medan masa memaparkan jam 12 jam (dengan AM/PM) atau jam 24 jam mengikut lokaliti pelayar dan sistem pengendalian pengguna. Ia tidak boleh ditetapkan oleh komponen. Apa pun yang dilihat pengguna, nilainya sentiasa dalam format 24 jam `HH:mm` (contohnya `"16:30"`), atau `HH:mm:ss` apabila `step` kurang daripada 60.
+
+### Medan masa atau slot masa?
+
+- Gunakan **`TimeField`** apabila pengguna boleh memasukkan sebarang masa, seperti masa sesuatu kejadian berlaku.
+- Gunakan **[slot masa](#slot-masa)** apabila pengguna menempah daripada kekosongan yang tetap, seperti masa temu janji di kaunter.
+
+## Contoh
+
+### Saiz
+
+Gunakan prop `size` untuk menukar saiz medan masa.
+
+<Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
+  <Tab value="Pratonton">
+    <div className="not-prose flex flex-col items-center gap-3">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-small" size="small">Masa temu janji</Label>
+        <TimeField id="time-field-small" size="small" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-medium" size="medium">Masa temu janji</Label>
+        <TimeField id="time-field-medium" size="medium" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-large" size="large">Masa temu janji</Label>
+        <TimeField id="time-field-large" size="large" />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Kod">
+    ```tsx
+    <Label htmlFor="time-field-small" size="small">Masa temu janji</Label>
+    <TimeField id="time-field-small" size="small" />
+    <Label htmlFor="time-field-medium" size="medium">Masa temu janji</Label>
+    <TimeField id="time-field-medium" size="medium" />
+    <Label htmlFor="time-field-large" size="large">Masa temu janji</Label>
+    <TimeField id="time-field-large" size="large" />
+    ```
+  </Tab>
+</Tabs>
+
+### Keadaan Tidak Terkawal vs Terkawal
+
+Untuk menggunakan medan masa dalam keadaan tidak terkawal, tetapkan prop `defaultValue` kepada masa awal sebagai rentetan 24 jam `HH:mm`.
+
+Untuk menggunakan medan masa dalam keadaan terkawal, tetapkan prop `value` dan kemas kininya daripada pendengar acara `onChange`.
+
+<Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
+  <Tab value="Pratonton">
+    <div className="not-prose flex justify-center">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-uncontrolled" size="small">Tidak terkawal</Label>
+        <TimeField id="time-field-uncontrolled" defaultValue="16:30" />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Kod">
+    ```tsx
+    // Keadaan tidak terkawal
+    <Label htmlFor="time-field-uncontrolled" size="small">Tidak terkawal</Label>
+    <TimeField id="time-field-uncontrolled" defaultValue="16:30" />
+
+    // Keadaan terkawal
+    const [time, setTime] = useState("16:30");
+
+    <Label htmlFor="time-field-controlled" size="small">Terkawal</Label>
+    <TimeField
+      id="time-field-controlled"
+      value={time}
+      onChange={(e) => setTime(e.target.value)}
+    />
+    ```
+
+  </Tab>
+</Tabs>
+
+### Langkah
+
+`step` adalah dalam saat dan lalainya `60`, jadi medan memaparkan jam dan minit tanpa saat. Tetapkan `step={900}` untuk langkah 15 minit: kekunci anak panah dan kawalan putar pelayar menggerakkan minit sebanyak 15.
+
+Pelayar menganggap `step` sebagai peraturan pengesahan. Tidak semua pelayar menghalang pengguna menaip minit lain (seperti `16:07`); input kemudiannya ditanda `:invalid` dan gagal pengesahan borang. Semak nilainya semasa hantar, atau gunakan [slot masa](#slot-masa) apabila hanya masa tetap dibenarkan.
+
+<Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
+  <Tab value="Pratonton">
+    <div className="not-prose flex justify-center">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-step" size="small">Masa temu janji</Label>
+        <TimeField id="time-field-step" step={900} defaultValue="16:00" />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Kod">
+    ```tsx
+    <Label htmlFor="time-field-step" size="small">Masa temu janji</Label>
+    <TimeField id="time-field-step" step={900} defaultValue="16:00" />
+    ```
+  </Tab>
+</Tabs>
+
+### Dilumpuhkan
+
+Medan masa boleh dilumpuhkan dengan menetapkan prop `disabled` kepada `true`. Apabila dilumpuhkan, medan masa tidak boleh digunakan.
+
+<Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
+  <Tab value="Pratonton">
+    <div className="not-prose flex justify-center">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-disabled" size="small">Masa temu janji</Label>
+        <TimeField id="time-field-disabled" defaultValue="16:30" disabled />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Kod">
+    ```tsx
+    <Label htmlFor="time-field-disabled" size="small">Masa temu janji</Label>
+    <TimeField id="time-field-disabled" defaultValue="16:30" disabled />
+    ```
+  </Tab>
+</Tabs>
+
+### Tidak Sah
+
+Untuk menanda medan masa yang gagal pengesahan, tetapkan prop `invalid` kepada `true`. Ia juga menetapkan `aria-invalid` pada input.
+
+<Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
+  <Tab value="Pratonton">
+    <div className="not-prose flex justify-center">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-field-invalid" size="small">Masa temu janji</Label>
+        <TimeField id="time-field-invalid" defaultValue="16:30" invalid />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Kod">
+    ```tsx
+    <Label htmlFor="time-field-invalid" size="small">Masa temu janji</Label>
+    <TimeField id="time-field-invalid" defaultValue="16:30" invalid />
+    ```
+  </Tab>
+</Tabs>
+
+## Slot masa
+
+Apabila pengguna menempah daripada kekosongan yang tetap, seperti temu janji kaunter setiap 15 minit, tawarkan masa yang tersedia sebagai pilihan dalam [`Select`](/docs/develop/select) dan bukannya `TimeField`. Pengguna hanya boleh memilih masa yang benar-benar ditawarkan, dan anda menentukan cara setiap masa ditulis.
+
+Gunakan masa 24 jam `HH:mm` sebagai `value` setiap pilihan, dan tulis labelnya mengikut cara perkhidmatan anda, seperti `4:00 PTG`. Tinggalkan masa yang sudah diambil.
+
+<Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
+  <Tab value="Pratonton">
+    <div className="not-prose flex justify-center">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="time-slot" size="small">Masa temu janji</Label>
+        <Select size="small" variant="outline">
+          <SelectTrigger id="time-slot">
+            <SelectValue placeholder="Pilih masa" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="16:00">4:00 PTG</SelectItem>
+            <SelectItem value="16:15">4:15 PTG</SelectItem>
+            <SelectItem value="16:30">4:30 PTG</SelectItem>
+            <SelectItem value="16:45">4:45 PTG</SelectItem>
+            <SelectItem value="17:00">5:00 PTG</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Kod">
+    ```tsx
+    <Label htmlFor="time-slot" size="small">Masa temu janji</Label>
+    <Select size="small" variant="outline">
+      <SelectTrigger id="time-slot">
+        <SelectValue placeholder="Pilih masa" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="16:00">4:00 PTG</SelectItem>
+        <SelectItem value="16:15">4:15 PTG</SelectItem>
+        <SelectItem value="16:30">4:30 PTG</SelectItem>
+        <SelectItem value="16:45">4:45 PTG</SelectItem>
+        <SelectItem value="17:00">5:00 PTG</SelectItem>
+      </SelectContent>
+    </Select>
+    ```
+  </Tab>
+</Tabs>
+
+## Prop
+
+### TimeField
+
+`TimeField` juga menerima prop `<input>` asli, kecuali `type` dan `size`.
+
+<TypeTable
+  type={{
+    size: {
+      description: "Saiz medan masa",
+      type: "enum",
+      typeDescription: "small | medium | large",
+      default: "small",
+    },
+    step: {
+      description: "Langkah antara masa yang dibenarkan, dalam saat",
+      type: "number",
+      default: "60",
+    },
+    defaultValue: {
+      description: "Masa awal medan masa (tidak terkawal)",
+      type: "string",
+      typeDescription: "HH:mm",
+    },
+    value: {
+      description: "Masa medan masa (terkawal)",
+      type: "string",
+      typeDescription: "HH:mm",
+    },
+    onChange: {
+      description: "Pendengar acara perubahan (terkawal)",
+      type: "(event: ChangeEvent<HTMLInputElement>) => void",
+    },
+    min: {
+      description: "Masa paling awal yang dibenarkan",
+      type: "string",
+      typeDescription: "HH:mm",
+    },
+    max: {
+      description: "Masa paling lewat yang dibenarkan",
+      type: "string",
+      typeDescription: "HH:mm",
+    },
+    disabled: {
+      description: "Keadaan dilumpuhkan untuk medan masa",
+      type: "boolean",
+      default: "false",
+    },
+    invalid: {
+      description: "Keadaan tidak sah untuk medan masa",
+      type: "boolean",
+      default: "false",
+    },
+  }}
+/>
