@@ -26,13 +26,14 @@ import {
 } from "@govtechmy/myds-react/select";
 
 /**
- * SPLaSK tagging is done by passing raw `splwpk-*` attributes to MYDS components, e.g.
- * `<Link splwpk-faqs="splwpk-faqs">`. Each story here passes an arbitrary `splwpk-*` attribute
- * to one component part and asserts that it reaches that part's rendered DOM element unchanged.
+ * SPLaSK tagging is done by passing raw `splwpk-*` attributes to MYDS components. Each story
+ * here passes an arbitrary `splwpk-*` attribute to one component part and asserts that it
+ * reaches that part's rendered DOM element unchanged. Hidden from the sidebar (`!dev`) but
+ * still run by `test-storybook`.
  */
 const meta = {
   title: "Tests/SPLaSK Tag Pass-through",
-  tags: ["!autodocs"],
+  tags: ["!autodocs", "!dev"],
   parameters: {
     layout: "centered",
   },
@@ -41,7 +42,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const TAG = "splwpk-test";
+/** An arbitrary SPLaSK attribute; its value differs from its name so a rewritten value fails. */
+const splaskTag = { "splwpk-test": "tagged" };
+
+const expectTagged = (element: HTMLElement) =>
+  expect(element).toHaveAttribute("splwpk-test", "tagged");
 
 /** The element a component renders as its root, i.e. with no wrapper in between. */
 const rootOf = (canvasElement: HTMLElement) =>
@@ -49,39 +54,39 @@ const rootOf = (canvasElement: HTMLElement) =>
 
 export const LinkTag: Story = {
   render: () => (
-    <Link href="#" splwpk-test={TAG}>
+    <Link href="#" {...splaskTag}>
       Soalan Lazim
     </Link>
   ),
   play: async ({ canvasElement }) => {
     const link = within(canvasElement).getByRole("link");
-    await expect(link).toHaveAttribute(TAG, TAG);
+    await expectTagged(link);
   },
 };
 
 export const LinkAsChildTag: Story = {
   render: () => (
-    <Link asChild splwpk-test={TAG}>
+    <Link asChild {...splaskTag}>
       <a href="#">Soalan Lazim</a>
     </Link>
   ),
   play: async ({ canvasElement }) => {
     const link = within(canvasElement).getByRole("link");
-    await expect(link).toHaveAttribute(TAG, TAG);
+    await expectTagged(link);
   },
 };
 
 export const ButtonTag: Story = {
-  render: () => <Button splwpk-test={TAG}>Hantar</Button>,
+  render: () => <Button {...splaskTag}>Hantar</Button>,
   play: async ({ canvasElement }) => {
     const button = within(canvasElement).getByRole("button");
-    await expect(button).toHaveAttribute(TAG, TAG);
+    await expectTagged(button);
   },
 };
 
 export const SearchBarTag: Story = {
   render: () => (
-    <SearchBar splwpk-test={TAG}>
+    <SearchBar {...splaskTag}>
       <SearchBarInputContainer>
         <SearchBarInput aria-label="Carian" placeholder="Carian" />
       </SearchBarInputContainer>
@@ -95,13 +100,13 @@ export const SearchBarTag: Story = {
     await expect(root).toContainElement(
       within(canvasElement).getByRole("combobox"),
     );
-    await expect(root).toHaveAttribute(TAG, TAG);
+    await expectTagged(root);
   },
 };
 
 export const AccordionTag: Story = {
   render: () => (
-    <Accordion type="single" collapsible splwpk-test={TAG}>
+    <Accordion type="single" collapsible {...splaskTag}>
       <AccordionItem value="item-1">
         <AccordionTrigger>Apakah MYDS?</AccordionTrigger>
         <AccordionContent>Sistem Reka Bentuk Malaysia.</AccordionContent>
@@ -113,14 +118,14 @@ export const AccordionTag: Story = {
     await expect(root).toContainElement(
       within(canvasElement).getByRole("button"),
     );
-    await expect(root).toHaveAttribute(TAG, TAG);
+    await expectTagged(root);
   },
 };
 
 export const SelectTriggerTag: Story = {
   render: () => (
     <Select variant="outline" size="small">
-      <SelectTrigger aria-label="Pilih bahasa" splwpk-test={TAG}>
+      <SelectTrigger aria-label="Pilih bahasa" {...splaskTag}>
         <SelectValue label="Bahasa" placeholder="Pilih" />
       </SelectTrigger>
       <SelectContent>
@@ -131,26 +136,26 @@ export const SelectTriggerTag: Story = {
   ),
   play: async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole("combobox");
-    await expect(trigger).toHaveAttribute(TAG, TAG);
+    await expectTagged(trigger);
   },
 };
 
 export const NavbarTag: Story = {
   parameters: { layout: "fullscreen" },
-  render: () => <Navbar splwpk-test={TAG} />,
+  render: () => <Navbar {...splaskTag} />,
   play: async ({ canvasElement }) => {
     const root = rootOf(canvasElement);
     await expect(root.tagName).toBe("HEADER");
-    await expect(root).toHaveAttribute(TAG, TAG);
+    await expectTagged(root);
   },
 };
 
 export const FooterTag: Story = {
   parameters: { layout: "fullscreen" },
-  render: () => <Footer splwpk-test={TAG} />,
+  render: () => <Footer {...splaskTag} />,
   play: async ({ canvasElement }) => {
     const root = rootOf(canvasElement);
     await expect(root.tagName).toBe("FOOTER");
-    await expect(root).toHaveAttribute(TAG, TAG);
+    await expectTagged(root);
   },
 };
