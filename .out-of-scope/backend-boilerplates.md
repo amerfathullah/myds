@@ -12,6 +12,8 @@ The developers these would serve are already covered:
 - The Laravel installation guide covers wiring MYDS into a Laravel app (Inertia is a common route, as upstream commenters suggested).
 - The one boilerplate in scope is Next.js (#21), which stays in the repo's own JavaScript toolchain.
 
+See [ADR-0003](../docs/adr/0003-one-implementation-react-on-the-preset.md).
+
 ## What would change this
 
 A co-maintainer who owns a given stack, or clear demand from agencies building on that stack. A closed request can be reopened.
