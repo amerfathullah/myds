@@ -78,14 +78,8 @@ const DateField: FunctionComponent<DateFieldProps> = ({
         className,
       })}
     >
-      <label htmlFor="date-field">
-        <CalendarIcon
-          className={icon_cva({ size, disabled })}
-          aria-label="Select date"
-        />
-      </label>
+      <CalendarIcon className={icon_cva({ size, disabled })} aria-hidden />
       <input
-        id="date-field"
         type="date"
         className={datefield_cva()}
         disabled={disabled}
