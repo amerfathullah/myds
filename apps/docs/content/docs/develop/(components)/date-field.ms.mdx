@@ -12,14 +12,14 @@ export const NOW = new Date().toISOString().split("T")[0];
 
 <Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
   <Tab value="Pratonton" className="not-prose flex justify-center">
-    <div className="flex flex-col gap-1.5">
-      <Label htmlFor="date-field">Tarikh lahir</Label>
+    <div className="flex flex-col gap-2">
+      <Label htmlFor="date-field" size="small">Tarikh lahir</Label>
       <DateField id="date-field" />
     </div>
   </Tab>
   <Tab value="Kod">
     ```tsx
-    <Label htmlFor="date-field">Tarikh lahir</Label>
+    <Label htmlFor="date-field" size="small">Tarikh lahir</Label>
     <DateField id="date-field" />
     ```
   </Tab>
@@ -44,7 +44,7 @@ import { Label } from "@govtechmy/myds-react/label";
 ```tsx copy title="Anatomi"
 export default () => (
   <>
-    <Label htmlFor="date-field">Tarikh lahir</Label>
+    <Label htmlFor="date-field" size="small">Tarikh lahir</Label>
     <DateField id="date-field" />
   </>
 );
@@ -59,15 +59,15 @@ Gunakan prop `size` untuk menukar saiz medan tarikh!
 <Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
   <Tab value="Pratonton">
     <div className="not-prose flex flex-col items-center gap-3">
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <Label htmlFor="date-field-small" size="small">Tarikh lahir</Label>
         <DateField id="date-field-small" size="small" />
       </div>
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <Label htmlFor="date-field-medium" size="medium">Tarikh lahir</Label>
         <DateField id="date-field-medium" size="medium" />
       </div>
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <Label htmlFor="date-field-large" size="large">Tarikh lahir</Label>
         <DateField id="date-field-large" size="large" />
       </div>
@@ -94,12 +94,12 @@ Untuk menggunakan medan tarikh dalam keadaan terkawal, tetapkan prop `value` kep
 <Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
   <Tab value="Pratonton">
     <div className="not-prose flex flex-col gap-3 items-center">
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="date-field-uncontrolled">Tidak Terkawal</Label>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="date-field-uncontrolled" size="small">Tidak Terkawal</Label>
         <DateField id="date-field-uncontrolled" defaultValue={NOW} />
       </div>
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="date-field-controlled">Terkawal</Label>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="date-field-controlled" size="small">Terkawal</Label>
         <DateField id="date-field-controlled" value={NOW} />
       </div>
     </div>
@@ -107,11 +107,11 @@ Untuk menggunakan medan tarikh dalam keadaan terkawal, tetapkan prop `value` kep
   <Tab value="Kod">
     ```tsx
     // Keadaan tidak terkawal
-    <Label htmlFor="date-field-uncontrolled">Tidak Terkawal</Label>
+    <Label htmlFor="date-field-uncontrolled" size="small">Tidak Terkawal</Label>
     <DateField id="date-field-uncontrolled" defaultValue={new Date().toISOString().split("T")[0]} />
 
     // Keadaan terkawal
-    <Label htmlFor="date-field-controlled">Terkawal</Label>
+    <Label htmlFor="date-field-controlled" size="small">Terkawal</Label>
     <DateField id="date-field-controlled" value={new Date().toISOString().split("T")[0]} />
     ```
 
@@ -125,15 +125,15 @@ Medan tarikh boleh dilumpuhkan dengan menetapkan prop `disabled` kepada `true`. 
 <Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
   <Tab value="Pratonton">
     <div className="not-prose flex justify-center">
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="date-field-disabled">Tarikh lahir</Label>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="date-field-disabled" size="small">Tarikh lahir</Label>
         <DateField id="date-field-disabled" defaultValue={NOW} disabled />
       </div>
     </div>
   </Tab>
   <Tab value="Kod">
     ```tsx
-    <Label htmlFor="date-field-disabled">Tarikh lahir</Label>
+    <Label htmlFor="date-field-disabled" size="small">Tarikh lahir</Label>
     <DateField id="date-field-disabled" defaultValue={new Date().toISOString().split("T")[0]} disabled />
     ```
   </Tab>
@@ -146,15 +146,15 @@ Keadaan tidak sah dicetuskan apabila medan tarikh gagal pengesahan. Untuk menunj
 <Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
   <Tab value="Pratonton">
     <div className="not-prose flex justify-center">
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="date-field-invalid">Tarikh lahir</Label>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="date-field-invalid" size="small">Tarikh lahir</Label>
         <DateField id="date-field-invalid" defaultValue={NOW} invalid />
       </div>
     </div>
   </Tab>
   <Tab value="Kod">
     ```tsx
-    <Label htmlFor="date-field-invalid">Tarikh lahir</Label>
+    <Label htmlFor="date-field-invalid" size="small">Tarikh lahir</Label>
     <DateField id="date-field-invalid" defaultValue={new Date().toISOString().split("T")[0]} invalid />
     ```
   </Tab>
