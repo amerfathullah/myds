@@ -456,6 +456,31 @@ components:
   date-field-size-large:
     typography: "18px/28px"
     padding: "10px 14px"
+  time-field:
+    backgroundColor: "{colors.bg-white}"
+    textColor: "{colors.txt-black-900}"
+    borderColor: "{colors.otl-gray-200}"
+    typography: "{typography.body-sm}"
+    fontWeight: 400
+    padding: "6px 10px"
+    rounded: "{rounded.md}"
+  time-field-disabled:
+    backgroundColor: "{colors.bg-washed}"
+    textColor: "{colors.txt-black-500}"
+  time-field-invalid:
+    borderColor: "{colors.otl-danger-300}"
+  time-field-segment-active:
+    backgroundColor: "{colors.primary-500}"
+    textColor: "{colors.txt-white}"
+  time-field-size-small:
+    typography: "{typography.body-sm}"
+    padding: "6px 10px"
+  time-field-size-medium:
+    typography: "{typography.body-md}"
+    padding: "8px 12px"
+  time-field-size-large:
+    typography: "18px/28px"
+    padding: "10px 14px"
   date-picker-day-active:
     backgroundColor: "{colors.primary-600}"
     textColor: "{colors.white}"
@@ -1100,7 +1125,7 @@ The canvas is white and the text near-black. There is one primary colour, blue, 
 3. Poppins headings (`font-heading` with `text-heading-*`) over an Inter body (`font-body` with `text-body-*`). Weights stop at Semibold 600; no component uses `font-bold`.
 4. Danger, success and warning convey status only: callouts, tags, validation and toasts.
 5. Light and dark themes come from semantic tokens plus the `.dark` class.
-6. Keyboard focus shows as a visible ring: `fr-primary`, or `fr-danger` on an invalid date field.
+6. Keyboard focus shows as a visible ring: `fr-primary`, or `fr-danger` on an invalid date or time field.
 7. A fixed page frame: SkipLink → Masthead (Malaysia flag) → Navbar (agency logo) … Footer (agency logo).
 8. The 12-8-4 grid: 12 columns on desktop, 8 on tablet, 4 on mobile.
 
@@ -1167,7 +1192,7 @@ Five scales, plus `white` and `black`. `gray` is Tailwind _zinc_ with its own 50
 ### Focus ring (`fr-*`)
 
 - `fr-primary` (`primary-300` @ 40%) is the focus ring on every focusable control, danger variants included.
-- `fr-danger` (`danger-300` @ 40%) is used only on an invalid date field.
+- `fr-danger` (`danger-300` @ 40%) is used only on an invalid date or time field.
 
 ### Dark theme
 
@@ -1380,7 +1405,7 @@ Motion in MYDS is short and functional: the guideline says it should guide, not 
 
 - **Source.** Import `<Name>Icon` components from `@govtechmy/myds-react/icon` (220 icons). The Masthead's `MalaysiaFlagIcon` is internal to the Masthead.
 - **Drawing.** Icons are drawn on a 20×20 viewBox with a `currentColor` stroke, so you colour an icon with a `txt-*` token. An icon is a glyph, so a text token is on-role. The stroke is 1.5px (`stroke-[1.5px]` on button, dropdown, dialog and tab icons); checkbox ticks are 1.5px small and 2px at medium and large.
-- **Size comes from the host component.** Button icons are 16px (small) and 20px (medium and large). Tab icons are 16/20, input icons 18/20/24, date-field icons 16/18/20, and select icons 16/20/20. The spinner is 16/20/24, callout and toast icons are 20px, and the alert-dialog icon is 42px.
+- **Size comes from the host component.** Button icons are 16px (small) and 20px (medium and large). Tab icons are 16/20, input icons 18/20/24, date- and time-field icons 16/18/20, and select icons 16/20/20. The spinner is 16/20/24, callout and toast icons are 20px, and the alert-dialog icon is 42px.
 - **Sets.** The outline set has a few filled counterparts (`-fill`, and `document-filled`). There are also social (Facebook, Instagram, X, TikTok, YouTube, LinkedIn, Telegram, WhatsApp, GitHub), file-type (`*-media`: PDF, Word, Excel, PowerPoint) and 60 `legacy-*` agency marks, `legacy-jata-negara` among them.
 
 ## Components
@@ -1390,7 +1415,7 @@ Front-matter keys follow the code: `<component>-<variant>` in the library's own 
 Rules that hold across every component:
 
 - **No `backgroundColor` means no fill.** The element inherits the surface behind it (ghost buttons, links, tab triggers, select ghost).
-- **Focus** is a 3px ring in `fr-primary` (`focus:ring focus:ring-fr-primary`) on every focusable control, danger variants included. Inputs, textareas, date fields and search bars also switch their border to `otl-primary-300`. Only an invalid date field uses `fr-danger`. Focus has no entries of its own.
+- **Focus** is a 3px ring in `fr-primary` (`focus:ring focus:ring-fr-primary`) on every focusable control, danger variants included. Inputs, textareas, date and time fields and search bars also switch their border to `otl-primary-300`. Only an invalid date or time field uses `fr-danger`. Focus has no entries of its own.
 - **Press** moves a button down half a pixel.
 - **Disabled** controls use `cursor-not-allowed`. Checkbox and radio also fade to 30% opacity.
 - **Borders** are 1px (`borderColor`). Where a border is a primitive at an alpha, the entry has an 8-digit hex literal and the prose names the source.
@@ -1408,6 +1433,7 @@ Rules that hold across every component:
 - **Textarea** (`textarea-*`). Minimum heights are 100, 120 and 150px by size (default medium). It has no resize handle.
 - **Label** (`label-*`). Sizes `body-sm`/`md`/`lg` (default medium). It takes `txt-black-disabled` when its peer or group is disabled.
 - **Date field** (`date-field-*`). Sizes small/medium/large (default small) and `disabled`/`invalid` axes. Its sizes use Tailwind text classes: `text-sm` and `text-base` match `body-sm`/`body-md`, and large is `text-lg` 18/28, **off-scale**. The focused day, month or year segment fills with primitive `primary-500` (`date-field-segment-active`). Invalid shows an `otl-danger-300` border with a permanent `fr-danger` ring.
+- **Time field** (`time-field-*`). A native time input that matches the date field at every size and state, with a decorative clock icon in place of the calendar. `step` is in seconds and defaults to 60, so it shows hours and minutes. 12/24-hour display follows the user's locale and can't be set. The focused hour, minute, second or AM/PM segment fills with primitive `primary-500` (`time-field-segment-active`). It renders no id or label of its own; name it with a Label. For booking from fixed availability, offer the times as Select options instead.
 - **Date picker / date range picker** (`date-picker-*`). The trigger is a date field and the popover holds an internal calendar with day, month and year views. The selected day is primitive `primary-600` with white text, so it doesn't re-theme. A range fills `bg-primary-100` and hovers to `bg-primary-200`, and today is `txt-primary`. Weekday headings are `body-xs` `txt-black-500`.
 - **Input OTP** (`input-otp-*`). One 50×68px slot per character, 6px apart, with the digit at `text-4xl` 36/40 Medium, **off-scale**. The active slot shows an `otl-primary-300` border and an `otl-primary-200` ring, and invalid turns both to the danger pair. The caret is a 1px `bg-black-900` bar.
 - **Search bar** (`search-bar-*`). Sizes `small` (6px radius), `medium` (default, 8px) and `large` (full). Only small sets a text size (`text-sm` = `body-sm`); medium and large inherit theirs. The large size adds a round submit button filled with a `primary-400` → `primary-600` gradient (`search-bar-submit` records the `primary-600` end). The results panel is `bg-white` with `shadow-context-menu`, joined to the input with no top border. Result rows highlight `bg-washed`, and group headings are `txt-black-500` Medium.
@@ -1504,11 +1530,11 @@ Each entry opens with its kind. A **Divergence** is something the guideline and 
   - orphaned tokens, because the front matter records every exposed token, not only those components use;
   - `missing-primary`, because MYDS has no `primary` key (see Colors);
   - unknown sub-tokens `borderColor` and `fontWeight`, which the spec doesn't define but MYDS needs;
-  - five contrast pairs. Four are disabled states (`button-{primary,danger}-fill-disabled`, `button-danger-{outline,ghost}-disabled`): the linter ignores alpha, and WCAG exempts disabled controls. The fifth is real: the focused date-field segment puts `txt-white` on `primary-500` at 4.15:1.
+  - six contrast pairs. Four are disabled states (`button-{primary,danger}-fill-disabled`, `button-danger-{outline,ghost}-disabled`): the linter ignores alpha, and WCAG exempts disabled controls. The other two are real: the focused date-field and time-field segments put `txt-white` on `primary-500` at 4.15:1.
 - **Gap:** the colour guideline is published as images only, so it can't be compared with the code value by value. All colour here comes from code.
 - **Gap:** the design guideline advertises a Theme Customizer for adjusting colours to an agency's branding. It is not built.
 - **Defect:** `otl-warning-300` resolves to `danger-300` (light) and `danger-700` (dark), while `otl-warning-200` uses the warning scale. It is reproduced as built.
-- **Divergence:** the guideline tells designers to style with semantic tokens so that everything re-themes, but some components use primitives, which stay the same colour in dark. These are button fills and their counters, checkbox, radio, the date-picker selected day, the date-field focused segment, the tabs line indicator, the search-bar submit button, the select counter and check, data-table selection, and tag borders.
+- **Divergence:** the guideline tells designers to style with semantic tokens so that everything re-themes, but some components use primitives, which stay the same colour in dark. These are button fills and their counters, checkbox, radio, the date-picker selected day, the date- and time-field focused segments, the tabs line indicator, the search-bar submit button, the select counter and check, data-table selection, and tag borders.
 - **Defect:** `bg-black-600` and `bg-black-950` are defined in both theme files but the preset exposes no class for them. The `black` primitive is not exposed either, and no token maps to it. Five status outline tokens (`otl-gray-600-20`, `otl-primary-600-20`, `otl-danger-600-20`, `otl-success-700-20`, `otl-warning-700-20`) are commented out, which is why tag borders use primitives @ 20%.
 - **Defect:** disabled tokens differ in form. `bg-{primary,danger,success,warning}-disabled` are opaque, while `bg-white-disabled`, `bg-black-disabled`, `txt-*-disabled` and `otl-*-disabled` are 40% alpha. `txt-danger-disabled` is built on `danger-600`, where `txt-danger` uses `danger-700`.
 - **Defect:** `bg-washed-active` equals `bg-washed`, and `bg-dialog-active` equals `bg-dialog`, in the light theme. So in light, a selected pill tab or current pagination item is barely set apart from its surface.
@@ -1519,7 +1545,7 @@ Each entry opens with its kind. A **Divergence** is something the guideline and 
 - **Gap:** the guideline defines Body 2X Small (10/12) and Body 2XL–6XL (24/32, 30/38, 36/44, 48/60, 60/72). The library has no token for any of them.
 - **Gap:** the guideline's Rich Text Format scale has no tokens. It is H1 30/38, H2 24/32, H3 20/28, H4 18/26, H5 16/24, H6 14/20 and paragraph 16/28 with 28px paragraph spacing, all Inter. There is also 6px list spacing and 12px paragraph spacing for the body sizes. The guideline's own WYSIWYG style list contradicts the RTF scale, giving Paragraph 15/27 and Heading 3 20/30.
 - **Divergence:** `body-xl` is 20/30 in code; the guideline gives 20/28.
-- **Divergence:** 15 components (accordion, announce-bar, button, calendar, callout, date-field, dropdown, input-otp, navbar, radio, search-bar, sheet, summary-list, table, tooltip) set Tailwind's default sizes or `leading-*` overrides instead of the MYDS scale. Where they match a token (`text-sm` = `body-sm`, `text-base` = `body-md`), the entry references it. The off-scale values rendered are 12/16 (`text-xs`), 18/28 (`text-lg`), 36/40 (`text-4xl`), 16/16, 12/14 and 14/33.11.
+- **Divergence:** 16 components (accordion, announce-bar, button, calendar, callout, date-field, dropdown, input-otp, navbar, radio, search-bar, sheet, summary-list, table, time-field, tooltip) set Tailwind's default sizes or `leading-*` overrides instead of the MYDS scale. Where they match a token (`text-sm` = `body-sm`, `text-base` = `body-md`), the entry references it. The off-scale values rendered are 12/16 (`text-xs`), 18/28 (`text-lg`), 36/40 (`text-4xl`), 16/16, 12/14 and 14/33.11.
 - **Gap:** the base styles apply no font family. Apps must add `font-body` and `font-heading` themselves, and within the library `font-heading` appears only on the Navbar agency name.
 - **Defect:** `font-mono` (Roboto Mono) is declared but the font is never loaded, so it falls back to the system monospace.
 - **Defect:** the Footer agency name asks for `font-poppins`, which doesn't exist, so it renders in the inherited family. The search bar's medium and large sizes ask for `text-md`, which doesn't exist, so they inherit their text size.
@@ -1554,6 +1580,7 @@ Each entry opens with its kind. A **Divergence** is something the guideline and 
 ### Components
 
 - **Gap:** these guideline components have no library component: backlink, character count, details (a chevron disclosure, distinct from the accordion), file upload, inset text (including block quote), panel (blue, green, yellow and red), password input, task list, and the WYSIWYG editor. The guideline's text-input types are approximated: number field with a leading dropdown, field with leading text, and field with a trailing button use Input's prepend and append addons. The tags field is Pill.
+- **Gap:** the guideline has no time-input page. The library's TimeField (and the Select time-slot pattern in its docs) has no design reference.
 - **Gap:** the guideline has no skeleton page. The library's Skeleton (`line`, `circle`, `block`) has no design reference.
 - **Divergence:** Radio has small, medium and large sizes; the guideline has Small and Medium.
 - **Divergence:** Switch has small, medium and large sizes; the guideline has Medium and Large.
@@ -1564,4 +1591,4 @@ Each entry opens with its kind. A **Divergence** is something the guideline and 
 - **Gap:** the guideline caps search results at 400px high; the component sets no maximum.
 - **Defect:** Pagination's JSDoc names its types `basic`, `basic-alternate` and `number`, but the prop accepts `default`, `simple` and `full`.
 - **Defect:** AnnounceBar asks for `min-height-[28px]`, which is not a Tailwind class (`min-h-[28px]` is), so it has no minimum height.
-- **Defect:** Link, Breadcrumb links, Footer links, Navbar menu items and the Toast close button have no `fr-*` focus ring. They fall back to the browser's default `:focus-visible` outline. The ring is written directly in 14 of the 40 component files; Pagination, the date pickers and other composites get it from Button.
+- **Defect:** Link, Breadcrumb links, Footer links, Navbar menu items and the Toast close button have no `fr-*` focus ring. They fall back to the browser's default `:focus-visible` outline. The ring is written directly in 15 of the 42 component files; Pagination, the date pickers and other composites get it from Button.

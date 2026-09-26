@@ -122,6 +122,11 @@
       "import": "./dist/components/date-field.mjs",
       "require": "./dist/components/date-field.js"
     },
+    "./time-field": {
+      "type": "./dist/components/time-field.d.ts",
+      "import": "./dist/components/time-field.mjs",
+      "require": "./dist/components/time-field.js"
+    },
     "./pagination": {
       "type": "./dist/components/pagination.d.ts",
       "import": "./dist/components/pagination.mjs",
