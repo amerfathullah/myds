@@ -1299,8 +1299,8 @@ The preset does not define its own breakpoints, so Tailwind's defaults are in ef
 A page container and grid built from existing classes (the page-level components already use this container):
 
 ```html
-<div class="px-4.5 mx-auto max-w-screen-xl md:px-6">
-  <div class="gap-4.5 grid grid-cols-4 md:grid-cols-8 md:gap-6 lg:grid-cols-12">
+<div class="mx-auto max-w-screen-xl px-4.5 md:px-6">
+  <div class="grid grid-cols-4 gap-4.5 md:grid-cols-8 md:gap-6 lg:grid-cols-12">
     …
   </div>
 </div>

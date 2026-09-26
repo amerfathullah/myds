@@ -31,7 +31,7 @@ const meta = {
           summary: "enum",
         },
       },
-      description: "Outline of the placeholder. Set its size with `className`.",
+      description: "Shape of the placeholder. Set its size with `className`.",
       control: "inline-radio",
       options: ["line", "circle", "block"],
     },

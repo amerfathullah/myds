@@ -29,7 +29,7 @@ const skeleton_cva = cva(
 /**
  * Props for Skeleton component.
  * @typedef SkeletonProps
- * @property {"line" | "circle" | "block"} [shape="line"] - The outline of the placeholder. Set its size with `className`.
+ * @property {"line" | "circle" | "block"} [shape="line"] - The shape of the placeholder. Set its size with `className`.
  */
 interface SkeletonProps
   extends ComponentProps<"div">,
