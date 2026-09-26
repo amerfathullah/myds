@@ -1,6 +1,7 @@
 import { QuestionCircleIcon } from "../icons";
 import { clx } from "../utils";
 import { forwardRef, ForwardRefExoticComponent, ComponentProps } from "react";
+import { Skeleton } from "./skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
 
 const Table: ForwardRefExoticComponent<ComponentProps<"table">> = forwardRef(
@@ -119,18 +120,7 @@ const TableTooltip: ForwardRefExoticComponent<ComponentProps<typeof Tooltip>> =
 TableTooltip.displayName = "TableTooltip";
 
 const TableSkeleton: ForwardRefExoticComponent<ComponentProps<"div">> =
-  forwardRef(({ className, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={clx(
-          "animate-shimmer direction-reverse from-bg-black-100 via-bg-black-300 to-bg-black-100 min-h-3 w-full rounded-full bg-gradient-to-r bg-[length:200%_50%]",
-          className,
-        )}
-        {...props}
-      />
-    );
-  });
+  forwardRef((props, ref) => <Skeleton ref={ref} {...props} shape="line" />);
 
 TableSkeleton.displayName = "TableSkeleton";
 

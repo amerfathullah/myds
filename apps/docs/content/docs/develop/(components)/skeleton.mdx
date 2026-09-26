@@ -1,0 +1,160 @@
+---
+title: Skeleton
+description: A loading placeholder in the shape of the content it stands in for.
+---
+
+import { Quicklinks } from "@/components/quicklinks";
+import { TypeTable } from "fumadocs-ui/components/type-table";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+
+<Tabs items={["Preview", "Code"]} defaultValue="Preview">
+  <Tab value="Preview">
+    <div className="not-prose flex justify-center">
+      <div className="flex w-72 items-center gap-3">
+        <Skeleton shape="circle" className="size-10 shrink-0" />
+        <div className="flex w-full flex-col gap-2">
+          <Skeleton />
+          <Skeleton className="w-2/3" />
+        </div>
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+
+```tsx
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+
+<div className="flex w-72 items-center gap-3">
+  <Skeleton shape="circle" className="size-10 shrink-0" />
+  <div className="flex w-full flex-col gap-2">
+    <Skeleton />
+    <Skeleton className="w-2/3" />
+  </div>
+</div>;
+```
+
+  </Tab>
+</Tabs>
+
+<Quicklinks
+  links={{
+    source:
+      "https://github.com/amerfathullah/myds-design-md/blob/main/packages/react/src/components/skeleton.tsx",
+  }}
+/>
+
+## Usage
+
+```ts copy title="Import"
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+```
+
+```tsx copy title="Anatomy"
+export default () => <Skeleton />;
+```
+
+### Skeleton or Spinner?
+
+- Use a **Skeleton** when you know the layout of the content that is loading, such as a list, a card or a table. It holds the content's space, so the page does not jump when the content arrives.
+- Use a [**Spinner**](/docs/develop/spinner) when an action is in progress, such as submitting a form, or when you don't know what shape the result will take.
+
+## Examples
+
+### Shapes
+
+Use the `shape` prop to match the content being loaded. Set the size with `className`.
+
+- `line` (default): a full-width pill bar for a line of text.
+- `circle`: a round placeholder for avatars and icons.
+- `block`: a placeholder with rounded corners for images, cards and media.
+
+<Tabs items={["Preview", "Code"]} defaultValue="Preview">
+  <Tab value="Preview">
+    <div className="not-prose flex items-center justify-center gap-6">
+      <Skeleton className="w-32" />
+      <Skeleton shape="circle" className="size-10" />
+      <Skeleton shape="block" className="h-24 w-36" />
+    </div>
+  </Tab>
+  <Tab value="Code">
+
+```tsx
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+
+<Skeleton className="w-32" />
+<Skeleton shape="circle" className="size-10" />
+<Skeleton shape="block" className="h-24 w-36" />
+```
+
+  </Tab>
+</Tabs>
+
+### Multiple lines
+
+There is no multi-line helper. Map over `Skeleton` to draw as many lines as you need.
+
+<Tabs items={["Preview", "Code"]} defaultValue="Preview">
+  <Tab value="Preview">
+    <div className="not-prose flex justify-center">
+      <div className="flex w-72 flex-col gap-2">
+        {["w-full", "w-full", "w-1/2"].map((width, index) => (
+          <Skeleton key={index} className={width} />
+        ))}
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+
+```tsx
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+
+<div className="flex flex-col gap-2">
+  {["w-full", "w-full", "w-1/2"].map((width, index) => (
+    <Skeleton key={index} className={width} />
+  ))}
+</div>;
+```
+
+  </Tab>
+</Tabs>
+
+## Accessibility
+
+Every `Skeleton` renders `aria-hidden="true"`, so screen readers skip it. Telling people that content is loading is up to you: set `aria-busy="true"` on the region that is loading and put visually hidden "Loading…" text inside it. Remove both when the content arrives.
+
+```tsx copy title="Loading region"
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+
+<section aria-busy={isLoading}>
+  {isLoading ? (
+    <>
+      <span className="sr-only">Loading…</span>
+      <Skeleton shape="block" className="h-32 w-full" />
+      <Skeleton />
+      <Skeleton className="w-2/3" />
+    </>
+  ) : (
+    <Content />
+  )}
+</section>;
+```
+
+When the user has asked for reduced motion (`prefers-reduced-motion`), the skeleton stops shimmering and shows a flat fill.
+
+## Props
+
+### Skeleton
+
+Skeleton also accepts every `div` prop and forwards its `ref`.
+
+<TypeTable
+  type={{
+    shape: {
+      description: "Shape of the placeholder. Set its size with className.",
+      type: "enum",
+      typeDescription: "line | circle | block",
+      default: "line",
+    },
+  }}
+/>

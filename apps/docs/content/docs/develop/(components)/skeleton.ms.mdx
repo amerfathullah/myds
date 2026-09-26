@@ -1,0 +1,160 @@
+---
+title: Skeleton
+description: Pemegang tempat semasa pemuatan yang mengikut bentuk kandungan yang diwakilinya.
+---
+
+import { Quicklinks } from "@/components/quicklinks";
+import { TypeTable } from "fumadocs-ui/components/type-table";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+
+<Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
+  <Tab value="Pratonton">
+    <div className="not-prose flex justify-center">
+      <div className="flex w-72 items-center gap-3">
+        <Skeleton shape="circle" className="size-10 shrink-0" />
+        <div className="flex w-full flex-col gap-2">
+          <Skeleton />
+          <Skeleton className="w-2/3" />
+        </div>
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Kod">
+
+```tsx
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+
+<div className="flex w-72 items-center gap-3">
+  <Skeleton shape="circle" className="size-10 shrink-0" />
+  <div className="flex w-full flex-col gap-2">
+    <Skeleton />
+    <Skeleton className="w-2/3" />
+  </div>
+</div>;
+```
+
+  </Tab>
+</Tabs>
+
+<Quicklinks
+  links={{
+    source:
+      "https://github.com/amerfathullah/myds-design-md/blob/main/packages/react/src/components/skeleton.tsx",
+  }}
+/>
+
+## Penggunaan
+
+```ts copy title="Import"
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+```
+
+```tsx copy title="Anatomi"
+export default () => <Skeleton />;
+```
+
+### Skeleton atau Spinner?
+
+- Gunakan **Skeleton** apabila anda tahu susun atur kandungan yang sedang dimuatkan, seperti senarai, kad atau jadual. Ia menempah ruang kandungan itu, jadi halaman tidak melompat apabila kandungan tiba.
+- Gunakan [**Spinner**](/docs/develop/spinner) apabila sesuatu tindakan sedang berjalan, seperti menghantar borang, atau apabila anda tidak tahu bentuk hasilnya.
+
+## Contoh
+
+### Bentuk
+
+Gunakan prop `shape` untuk memadankan kandungan yang sedang dimuatkan. Tetapkan saiznya dengan `className`.
+
+- `line` (lalai): bar berbentuk pil selebar penuh untuk satu baris teks.
+- `circle`: pemegang tempat bulat untuk avatar dan ikon.
+- `block`: pemegang tempat bersudut bulat untuk imej, kad dan media.
+
+<Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
+  <Tab value="Pratonton">
+    <div className="not-prose flex items-center justify-center gap-6">
+      <Skeleton className="w-32" />
+      <Skeleton shape="circle" className="size-10" />
+      <Skeleton shape="block" className="h-24 w-36" />
+    </div>
+  </Tab>
+  <Tab value="Kod">
+
+```tsx
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+
+<Skeleton className="w-32" />
+<Skeleton shape="circle" className="size-10" />
+<Skeleton shape="block" className="h-24 w-36" />
+```
+
+  </Tab>
+</Tabs>
+
+### Beberapa baris
+
+Tiada pembantu berbilang baris. Petakan (`map`) `Skeleton` untuk melukis seberapa banyak baris yang diperlukan.
+
+<Tabs items={["Pratonton", "Kod"]} defaultValue="Pratonton">
+  <Tab value="Pratonton">
+    <div className="not-prose flex justify-center">
+      <div className="flex w-72 flex-col gap-2">
+        {["w-full", "w-full", "w-1/2"].map((width, index) => (
+          <Skeleton key={index} className={width} />
+        ))}
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Kod">
+
+```tsx
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+
+<div className="flex flex-col gap-2">
+  {["w-full", "w-full", "w-1/2"].map((width, index) => (
+    <Skeleton key={index} className={width} />
+  ))}
+</div>;
+```
+
+  </Tab>
+</Tabs>
+
+## Kebolehcapaian
+
+Setiap `Skeleton` dipaparkan dengan `aria-hidden="true"`, jadi pembaca skrin melangkauinya. Memaklumkan bahawa kandungan sedang dimuatkan ialah tanggungjawab anda: tetapkan `aria-busy="true"` pada kawasan yang sedang dimuatkan dan letakkan teks "Memuatkan…" yang tersembunyi secara visual di dalamnya. Buang kedua-duanya apabila kandungan tiba.
+
+```tsx copy title="Kawasan pemuatan"
+import { Skeleton } from "@govtechmy/myds-react/skeleton";
+
+<section aria-busy={isLoading}>
+  {isLoading ? (
+    <>
+      <span className="sr-only">Memuatkan…</span>
+      <Skeleton shape="block" className="h-32 w-full" />
+      <Skeleton />
+      <Skeleton className="w-2/3" />
+    </>
+  ) : (
+    <Content />
+  )}
+</section>;
+```
+
+Apabila pengguna meminta pergerakan dikurangkan (`prefers-reduced-motion`), kilauan skeleton berhenti dan ia memaparkan warna isian rata.
+
+## Prop
+
+### Skeleton
+
+Skeleton juga menerima semua prop `div` dan meneruskan `ref`nya.
+
+<TypeTable
+  type={{
+    shape: {
+      description: "Bentuk pemegang tempat. Tetapkan saiznya dengan className.",
+      type: "enum",
+      typeDescription: "line | circle | block",
+      default: "line",
+    },
+  }}
+/>
