@@ -12,8 +12,8 @@ Interactive HTML previews of MYDS design tokens (color ramps, semantic tokens, t
 
 | Theme | Link |
 |-------|------|
-| ☀️ Light | [preview.html](./preview.html) |
-| 🌙 Dark | [preview-dark.html](./preview-dark.html) |
+| ☀️ Light | [preview.html](https://amerfathullah.github.io/myds-design-md/preview.html) |
+| 🌙 Dark | [preview-dark.html](https://amerfathullah.github.io/myds-design-md/preview-dark.html) |
 
 There are two (2) key products in MYDS:
 
