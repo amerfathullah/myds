@@ -83,3 +83,9 @@ _Avoid_: Omission, missing feature
 **Defect**:
 A place where the component library contradicts itself: a style it names but never generates, a stale name, or a token that resolves to the wrong scale.
 _Avoid_: Bug, dead code
+
+### Project
+
+**Upstream**:
+The original `govtechmy/myds` repository that this project continues from.
+_Avoid_: Original repo, parent, source repo
