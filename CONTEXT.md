@@ -60,6 +60,10 @@ _Avoid_: Government site (a non-government site can look like one), agency site
 A starter app scaffold wired to MYDS (`template/fe-template-*`); it carries no page design of its own.
 _Avoid_: Page pattern, layout
 
+**Boilerplate**:
+A cloneable starter app built on MYDS that ships example pages (and optionally a backend), unlike a template, which carries no page design.
+_Avoid_: Template, starter kit
+
 ### Components
 
 **Variant**:
