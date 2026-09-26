@@ -15,7 +15,7 @@ See [ADR-0003](../docs/adr/0003-one-implementation-react-on-the-preset.md).
 
 ## What would change this
 
-A way to *generate* the HTML/CSS from the preset, so nothing is copied by hand, and someone to maintain that pipeline.
+A way to _generate_ the HTML/CSS from the preset, so nothing is copied by hand, and someone to maintain that pipeline.
 
 ## Prior requests
 
